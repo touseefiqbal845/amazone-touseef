@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./containers/Header";
+import ProductListing from "./containers/ProductListing";
+import ProductDetails from "./containers/ProductDetails";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import Cart from "./containers/Cart"; // Import the Cart component
+import Notfound from "./containers/Notfound";
+import SignIn from "./containers/Sign";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      <Router>
+        <Header />
+        <Routes>
+          <Route exact path="/" element={<ProductListing />} />
+          <Route exact path="/product/:productId" element={<ProductDetails />} />
+          <Route exact path="/cart" element={<Cart />} /> {/* Add this route */}
+          <Route path="*" element={<Notfound/>} />
+          <Route path="/sign" element={<SignIn/>} />
+          
+        </Routes>
+      </Router>
     </div>
   );
 }
-
-export default App;
