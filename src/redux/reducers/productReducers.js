@@ -26,8 +26,19 @@ export const productReducer = (state = productInitialState, { type, payload }) =
 
 const selectedProductInitialState = {};
 
-export const selectedProductReducer = (state = selectedProductInitialSt
-  
+export const selectedProductReducer = (state = selectedProductInitialState, { type, payload }) => {
+  switch (type) {
+    case ActionTypes.SELECTED_PRODUCTS:
+      return { ...state, ...payload };
+    case ActionTypes.REMOVE_SELECTED_PRODUCTS:
+      return {};
+    default:
+      return state;
+  }
+};
+
+const cartInitialState = {
+ cartItems: JSON.parse(localStorage.getItem("cartItems")) || [],
 };
 // productReducers.js
 
@@ -79,50 +90,5 @@ export const cartReducer = (state = cartInitialState, { type, payload }) => {
       return state;
   }
 };
-
-// export const cartReducer = (state = cartInitialState, { type, payload }) => {
-//   switch (type) {
-//     case ActionTypes.ADD_TO_CART:
-//       // Check if the product already exists in the cart
-//       const existingItemIndex = state.cartItems.findIndex((item) => item.id === payload.id);
-
-//       if (existingItemIndex !== -1) {
-//         // If the product exists, update its quantity
-//         const updatedCartItems = [...state.cartItems];
-//         updatedCartItems[existingItemIndex].quantity++;
-//         return { ...state, cartItems: updatedCartItems };
-//       } else {
-//         // If the product doesn't exist, add it to the cart
-//         const newItem = { ...payload, quantity: 1 };
-//         return { ...state, cartItems: [...state.cartItems, newItem] };
-//       }
-//     case ActionTypes.REMOVE_FROM_CART:
-//       // Filter out the item with the specified id and update the cartItems
-//       const updatedCartItemsRemove = state.cartItems.filter((item) => item.id !== payload);
-//       return { ...state, cartItems: updatedCartItemsRemove };
-//     case ActionTypes.INCREASE_QUANTITY:
-//       // Find the item with the specified id and increase its quantity
-//       const incrementedItems = state.cartItems.map((item) => {
-//         if (item.id === payload) {
-//           return { ...item, quantity: item.quantity + 1 };
-//         }
-//         return item;
-//       });
-//       return { ...state, cartItems: incrementedItems };
-//     case ActionTypes.DECREASE_QUANTITY:
-//       // Find the item with the specified id and decrease its quantity if greater than 1
-//       const decrementedItems = state.cartItems.map((item) => {
-//         if (item.id === payload && item.quantity > 1) {
-//           return { ...item, quantity: item.quantity - 1 };
-//           localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-//       return state;
-//         }
-//         return item;
-//       });
-//       return { ...state, cartItems: decrementedItems };
-//     default:
-//       return state;
-//   }
-// };
 
 
